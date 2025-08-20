@@ -1,0 +1,17 @@
+created_date: '2025-01-19'
+description: Simple test decision tree
+domain: test_cardiology
+expert: Test Expert
+nodes:
+- clinical_significance: Initial rhythm assessment
+  is_root: true
+  knowledge_case: Normal rhythm shows regular R-R intervals with P-waves before each
+    QRS.
+  node_id: rhythm_check
+  question: Is the ECG rhythm normal or abnormal?
+- clinical_significance: Rate determines urgency
+  knowledge_case: 'Normal: 60-100 bpm, Bradycardia: <60 bpm, Tachycardia: >100 bpm'
+  node_id: rate_assessment
+  parent: rhythm_check
+  question: What is the heart rate category?
+version: '1.0'

@@ -1,0 +1,220 @@
+# Expert Decision Tree for Arrhythmia Classification
+# Specialized decision tree for detailed arrhythmia analysis
+# Domain: Cardiology - Arrhythmia Focus
+
+domain: arrhythmia_classification
+expert: Dr. Electrophysiology Specialist
+version: 1.0
+description: Specialized decision tree for comprehensive arrhythmia classification and management
+created_date: "2025-01-19"
+
+nodes:
+  # Root: Primary arrhythmia classification
+  - node_id: arrhythmia_classification_root
+    question: "Is an arrhythmia present and what is its fundamental mechanism?"
+    knowledge_case: |
+      Arrhythmia classification by mechanism:
+      
+      1. Normal Sinus Rhythm: Regular, 60-100 bpm, normal P-QRS-T sequence
+      
+      2. Bradyarrhythmias (<60 bpm):
+         - Sinus bradycardia: Slow but normal conduction
+         - AV blocks: Conduction delays/blocks between atria and ventricles
+         - Escape rhythms: Backup pacemakers (junctional, ventricular)
+      
+      3. Tachyarrhythmias (>100 bpm):
+         - Supraventricular: Origin above ventricles (narrow QRS usually)
+         - Ventricular: Origin in ventricles (wide QRS usually)
+         - Re-entrant vs automatic vs triggered mechanisms
+      
+      Initial assessment focuses on rate, regularity, QRS width, and P-wave relationship.
+    context: "Mechanism-based classification guides specific treatment approaches"
+    is_root: true
+    clinical_significance: "Accurate arrhythmia classification determines appropriate emergency vs elective treatment"
+
+  # Bradyarrhythmia branch
+  - node_id: bradyarrhythmia_analysis
+    question: "What is the specific type and severity of bradyarrhythmia?"
+    knowledge_case: |
+      Bradyarrhythmia classification:
+      
+      Sinus Node Disorders:
+      - Sinus bradycardia: Rate 40-59 bpm, normal P-waves
+      - Sinus arrest/pause: Absence of P-waves for >3 seconds
+      - Sick sinus syndrome: Alternating brady-tachy, chronotropic incompetence
+      
+      AV Conduction Blocks:
+      - 1st degree: PR >200ms, stable
+      - 2nd degree Type I: Progressive PR lengthening (Wenckebach)
+      - 2nd degree Type II: Fixed PR with sudden dropped beats
+      - 2:1 AV block: Every other P-wave conducted
+      - High-grade AV block: Multiple consecutive dropped beats
+      - 3rd degree (complete): Complete AV dissociation
+      
+      Escape Rhythms:
+      - Junctional: 40-60 bpm, narrow QRS, no P-waves or inverted P-waves
+      - Ventricular: 20-40 bpm, wide QRS, AV dissociation
+      
+      Hemodynamic significance depends on symptoms and underlying heart disease.
+    context: "Bradyarrhythmia severity determines need for temporary vs permanent pacing"
+    parent: arrhythmia_classification_root
+    clinical_significance: "Progressive AV blocks can cause sudden cardiac death requiring emergent pacing"
+
+  # Supraventricular tachycardia branch
+  - node_id: supraventricular_tachycardia_analysis
+    question: "What is the specific mechanism and type of supraventricular tachycardia?"
+    knowledge_case: |
+      Supraventricular Tachycardia (SVT) Classification:
+      
+      Atrial Arrhythmias:
+      - Atrial Fibrillation: Irregularly irregular, no discrete P-waves, fibrillatory waves
+      - Atrial Flutter: Regular "sawtooth" flutter waves, usually 150 bpm (300 atrial rate with 2:1 block)
+      - Multifocal Atrial Tachycardia: Irregular, ≥3 different P-wave morphologies
+      - Atrial Tachycardia: Regular, discrete P-waves different from sinus, 150-250 bpm
+      
+      AV Nodal Re-entrant Tachycardia (AVNRT):
+      - Regular, 150-250 bpm, narrow QRS
+      - P-waves often hidden in QRS or appear as pseudo-R' in V1
+      - Sudden onset/termination
+      
+      AV Re-entrant Tachycardia (AVRT):
+      - Uses accessory pathway (WPW syndrome)
+      - Orthodromic: Narrow QRS, retrograde P-waves
+      - Antidromic: Wide QRS (pre-excited)
+      
+      Response to vagal maneuvers and adenosine helps differentiate mechanisms.
+    context: "SVT mechanism determines specific treatment approach and long-term management"
+    parent: arrhythmia_classification_root
+    clinical_significance: "Some SVTs can degenerate to life-threatening arrhythmias requiring urgent treatment"
+
+  # Ventricular arrhythmia branch
+  - node_id: ventricular_arrhythmia_analysis
+    question: "What is the type and risk level of ventricular arrhythmia?"
+    knowledge_case: |
+      Ventricular Arrhythmia Classification:
+      
+      Premature Ventricular Complexes (PVCs):
+      - Isolated: <10% of total beats, usually benign
+      - Frequent: >10% of beats, may cause cardiomyopathy
+      - Patterns: Bigeminy, trigeminy, multifocal, R-on-T phenomenon
+      
+      Ventricular Tachycardia (VT):
+      - Sustained: >30 seconds or hemodynamically significant
+      - Non-sustained: <30 seconds, often asymptomatic
+      - Monomorphic: Consistent QRS morphology, suggests focal origin
+      - Polymorphic: Varying QRS morphology, suggests multiple origins
+      
+      Torsades de Pointes:
+      - Polymorphic VT with QT prolongation
+      - "Twisting of points" appearance
+      - Associated with medications, electrolyte abnormalities
+      
+      Ventricular Fibrillation (VF):
+      - Chaotic, irregular waveforms
+      - No organized QRS complexes
+      - Immediately life-threatening, requires defibrillation
+      
+      Risk stratification based on structural heart disease, ejection fraction, and symptoms.
+    context: "Ventricular arrhythmias carry highest risk of sudden cardiac death"
+    parent: arrhythmia_classification_root
+    clinical_significance: "VT/VF requires immediate defibrillation and anti-arrhythmic therapy"
+
+  # Atrial fibrillation specific analysis
+  - node_id: atrial_fibrillation_characterization
+    question: "What are the specific characteristics and management implications of atrial fibrillation?"
+    knowledge_case: |
+      Atrial Fibrillation (AF) Characterization:
+      
+      ECG Features:
+      - Irregularly irregular rhythm
+      - Absence of discrete P-waves
+      - Fibrillatory waves (best seen in V1)
+      - Variable ventricular response rate
+      
+      Classification by Duration:
+      - Paroxysmal: Self-terminating, <7 days
+      - Persistent: Sustained >7 days, requires intervention
+      - Long-standing persistent: >12 months
+      - Permanent: Accepted, rate control only
+      
+      Rate Control Assessment:
+      - Controlled: Resting HR 60-100 bpm
+      - Rapid ventricular response: HR >100 bpm
+      - Slow ventricular response: HR <60 bpm (concerning for AV block)
+      
+      Clinical Considerations:
+      - Stroke risk (CHA2DS2-VASc score)
+      - Bleeding risk (HAS-BLED score)
+      - Symptoms (palpitations, dyspnea, fatigue, chest pain)
+      - Hemodynamic stability
+      
+      Management: Rate vs rhythm control, anticoagulation decisions.
+    context: "AF management requires balancing stroke prevention with bleeding risk"
+    parent: supraventricular_tachycardia_analysis
+    clinical_significance: "AF is major cause of stroke requiring anticoagulation consideration"
+
+  # Wide complex tachycardia differentiation
+  - node_id: wide_complex_tachycardia_differentiation
+    question: "Is wide complex tachycardia ventricular or supraventricular with aberrancy?"
+    knowledge_case: |
+      Wide Complex Tachycardia (WCT) Differentiation:
+      
+      Ventricular Tachycardia (VT) Features:
+      - AV dissociation (independent P-waves)
+      - Capture beats (narrow QRS during WCT)
+      - Fusion beats (hybrid narrow/wide morphology)
+      - QRS >140ms
+      - Concordance in precordial leads (all positive or negative)
+      - Specific morphology criteria (Brugada, Vereckei algorithms)
+      
+      SVT with Aberrancy Features:
+      - 1:1 VA relationship
+      - QRS 120-140ms typically
+      - Typical bundle branch block pattern
+      - Response to vagal maneuvers or adenosine
+      
+      Clinical Context:
+      - Age >35 years: VT more likely
+      - Structural heart disease: VT more likely
+      - Hemodynamic stability: Does not differentiate
+      - Prior MI or cardiomyopathy: VT much more likely
+      
+      When in doubt, treat as VT (safer assumption).
+      
+      Brugada Criteria provide systematic approach to differentiation.
+    context: "WCT differentiation determines treatment approach and long-term risk"
+    parent: ventricular_arrhythmia_analysis
+    clinical_significance: "Misdiagnosis can lead to inappropriate treatment with serious consequences"
+
+  # Emergency arrhythmia management
+  - node_id: emergency_arrhythmia_management
+    question: "What is the appropriate emergency management based on arrhythmia type and hemodynamic status?"
+    knowledge_case: |
+      Emergency Arrhythmia Management by Type:
+      
+      Immediate Life-Threatening (Unstable):
+      - VF/Pulseless VT: Immediate defibrillation 200J biphasic
+      - Polymorphic VT/Torsades: Defibrillation + magnesium 2g IV
+      - Complete heart block with symptoms: Transcutaneous pacing
+      - Any arrhythmia with hemodynamic compromise: Synchronized cardioversion
+      
+      Stable but Urgent:
+      - Monomorphic VT: Amiodarone 150mg IV or cardioversion
+      - SVT with RVR: Adenosine 6mg IV (if narrow), beta-blockers/CCB
+      - New AF with RVR: Rate control vs cardioversion (timing dependent)
+      - High-grade AV block: Atropine, transcutaneous pacing standby
+      
+      Hemodynamic Assessment:
+      - Unstable: Hypotension, altered mental status, chest pain, acute heart failure
+      - Stable: Alert, adequate perfusion, tolerable symptoms
+      
+      Special Considerations:
+      - WPW with AF: Avoid AV nodal blockers (procainamide preferred)
+      - Torsades: Magnesium, correct QT interval, overdrive pacing
+      - Digoxin toxicity: Digoxin-specific antibodies
+      
+      Always consider reversible causes: electrolytes, ischemia, drugs, hypoxia.
+    context: "Emergency management prioritizes hemodynamic stability and prevention of deterioration"
+    parent: wide_complex_tachycardia_differentiation
+    clinical_significance: "Rapid recognition and treatment of unstable arrhythmias saves lives"
+    is_terminal: true

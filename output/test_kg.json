@@ -1,0 +1,40 @@
+{
+  "domain": "test",
+  "root_node_id": "test_node",
+  "metadata": {
+    "created_by": "CoT-RAG Stage 1 Generator",
+    "version": "1.0",
+    "domain": "test"
+  },
+  "nodes": {
+    "test_node": {
+      "node_id": "test_node",
+      "diagnosis_class": "test",
+      "node_type": "internal",
+      "parent_node": null,
+      "child_nodes": [],
+      "sub_question": "Test question?",
+      "sub_case": "test_case",
+      "sub_description": "",
+      "answer": "",
+      "decision_rule_logic": "",
+      "required_classifier_inputs": [],
+      "confidence_threshold": 0.7,
+      "clinical_significance": "",
+      "evidence_sources": [],
+      "medical_codes": {},
+      "execution_metadata": {}
+    }
+  },
+  "statistics": {
+    "total_nodes": 1,
+    "node_types": {
+      "internal": 1
+    },
+    "max_depth": 0,
+    "avg_depth": 0.0,
+    "leaf_nodes": 1,
+    "domain": "test",
+    "has_root": true
+  }
+}

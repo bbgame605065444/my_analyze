@@ -1,0 +1,82 @@
+{
+  "domain": "test_cardiology",
+  "root_node_id": "rhythm_assessment",
+  "metadata": {
+    "created_by": "CoT-RAG Stage 1 Generator",
+    "version": "1.0",
+    "domain": "test_cardiology"
+  },
+  "nodes": {
+    "rhythm_assessment": {
+      "node_id": "rhythm_assessment",
+      "diagnosis_class": "Rhythm Assessment",
+      "node_type": "root",
+      "parent_node": null,
+      "child_nodes": [
+        "rate_evaluation"
+      ],
+      "sub_question": "Is the ECG rhythm normal or abnormal?",
+      "sub_case": "Normal sinus rhythm shows regular R-R intervals with P-waves before each QRS complex.",
+      "sub_description": "",
+      "answer": "",
+      "decision_rule_logic": "",
+      "required_classifier_inputs": [],
+      "confidence_threshold": 0.7,
+      "clinical_significance": "Initial rhythm assessment determines further evaluation pathway",
+      "evidence_sources": [],
+      "medical_codes": {},
+      "execution_metadata": {}
+    },
+    "rate_evaluation": {
+      "node_id": "rate_evaluation",
+      "diagnosis_class": "Heart Rate Analysis",
+      "node_type": "internal",
+      "parent_node": "rhythm_assessment",
+      "child_nodes": [
+        "final_diagnosis"
+      ],
+      "sub_question": "What is the heart rate category?",
+      "sub_case": "Normal: 60-100 bpm, Bradycardia: <60 bpm, Tachycardia: >100 bpm",
+      "sub_description": "",
+      "answer": "",
+      "decision_rule_logic": "",
+      "required_classifier_inputs": [],
+      "confidence_threshold": 0.7,
+      "clinical_significance": "Rate abnormalities guide urgency of intervention",
+      "evidence_sources": [],
+      "medical_codes": {},
+      "execution_metadata": {}
+    },
+    "final_diagnosis": {
+      "node_id": "final_diagnosis",
+      "diagnosis_class": "Diagnostic Conclusion",
+      "node_type": "leaf",
+      "parent_node": "rate_evaluation",
+      "child_nodes": [],
+      "sub_question": "What is the final cardiac diagnosis?",
+      "sub_case": "Based on rhythm and rate analysis, determine if normal or specific arrhythmia",
+      "sub_description": "",
+      "answer": "",
+      "decision_rule_logic": "",
+      "required_classifier_inputs": [],
+      "confidence_threshold": 0.7,
+      "clinical_significance": "Final diagnosis determines treatment plan",
+      "evidence_sources": [],
+      "medical_codes": {},
+      "execution_metadata": {}
+    }
+  },
+  "statistics": {
+    "total_nodes": 3,
+    "node_types": {
+      "root": 1,
+      "internal": 1,
+      "leaf": 1
+    },
+    "max_depth": 2,
+    "avg_depth": 1.0,
+    "leaf_nodes": 1,
+    "domain": "test_cardiology",
+    "has_root": true
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "test_summary": {
+    "start_time": "2025-08-20T10:31:10.648935",
+    "end_time": "2025-08-20T10:31:11.063726",
+    "duration_seconds": 0.414791,
+    "total_tests": 10,
+    "passed_tests": 1,
+    "failed_tests": 9,
+    "partial_tests": 0,
+    "success_rate": 10.0
+  },
+  "test_results": {
+    "signal_processing": {
+      "status": "failed",
+      "details": {
+        "error": "'signals_processed'",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 205, in _test_signal_processing\n    processed_signal = processor.preprocess_signal(\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ll/Desktop/codes/cot/ecg_processing/signal_preprocessing.py\", line 182, in preprocess_signal\n    self._update_processing_stats(result)\n  File \"/home/ll/Desktop/codes/cot/ecg_processing/signal_preprocessing.py\", line 427, in _update_processing_stats\n    self.processing_stats['signals_processed'] += 1\n    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nKeyError: 'signals_processed'\n"
+      }
+    },
+    "se_resnet_classifier": {
+      "status": "failed",
+      "details": {
+        "error": "name 'ECGModelConfig' is not defined",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 258, in _test_se_resnet_classifier\n    config = ECGModelConfig(\n             ^^^^^^^^^^^^^^\nNameError: name 'ECGModelConfig' is not defined\n"
+      }
+    },
+    "han_classifier": {
+      "status": "failed",
+      "details": {
+        "error": "name 'ECGModelConfig' is not defined",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 314, in _test_han_classifier\n    config = ECGModelConfig(\n             ^^^^^^^^^^^^^^\nNameError: name 'ECGModelConfig' is not defined\n"
+      }
+    },
+    "ensemble_management": {
+      "status": "failed",
+      "details": {
+        "error": "name 'ECGModelConfig' is not defined",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 369, in _test_ensemble_management\n    config = ECGModelConfig(\n             ^^^^^^^^^^^^^^\nNameError: name 'ECGModelConfig' is not defined\n"
+      }
+    },
+    "dataset_loading": {
+      "status": "failed",
+      "details": {
+        "error": "name 'PTBXLConfig' is not defined",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 435, in _test_dataset_loading\n    config = PTBXLConfig(\n             ^^^^^^^^^^^\nNameError: name 'PTBXLConfig' is not defined\n"
+      }
+    },
+    "clinical_validation": {
+      "status": "failed",
+      "details": {
+        "error": "name 'ClinicalMetrics' is not defined",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 498, in _test_clinical_validation\n    clinical_metrics = ClinicalMetrics()\n                       ^^^^^^^^^^^^^^^\nNameError: name 'ClinicalMetrics' is not defined\n"
+      }
+    },
+    "expert_comparison": {
+      "status": "failed",
+      "details": {
+        "error": "name 'ExpertComparison' is not defined",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 567, in _test_expert_comparison\n    comparison = ExpertComparison(class_names=self.mock_ecg_data['class_names'])\n                 ^^^^^^^^^^^^^^^^\nNameError: name 'ExpertComparison' is not defined\n"
+      }
+    },
+    "interpretability_analysis": {
+      "status": "failed",
+      "details": {
+        "error": "name 'InterpretabilityAnalyzer' is not defined",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 656, in _test_interpretability_analysis\n    analyzer = InterpretabilityAnalyzer(\n               ^^^^^^^^^^^^^^^^^^^^^^^^\nNameError: name 'InterpretabilityAnalyzer' is not defined\n"
+      }
+    },
+    "end_to_end_pipeline": {
+      "status": "failed",
+      "details": {
+        "error": "'signals_processed'",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/ll/Desktop/codes/cot/test_stage4_integration.py\", line 733, in _test_end_to_end_pipeline\n    processed_signal = processor.preprocess_signal(test_signal, sampling_rate=500)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ll/Desktop/codes/cot/ecg_processing/signal_preprocessing.py\", line 182, in preprocess_signal\n    self._update_processing_stats(result)\n  File \"/home/ll/Desktop/codes/cot/ecg_processing/signal_preprocessing.py\", line 427, in _update_processing_stats\n    self.processing_stats['signals_processed'] += 1\n    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nKeyError: 'signals_processed'\n"
+      }
+    },
+    "stage3_integration": {
+      "status": "passed",
+      "details": {
+        "stage3_components_available": false,
+        "integration_successful": true,
+        "data_flow_successful": true,
+        "reasoning_enhancement_successful": true,
+        "mock_reasoning_result": {
+          "conclusion": "Mock integration successful",
+          "confidence": 0.9,
+          "reasoning_chain": [
+            "ECG classified",
+            "Clinical features extracted",
+            "Diagnosis confirmed"
+          ]
+        }
+      }
+    }
+  },
+  "test_data_summary": {
+    "num_samples": 50,
+    "num_leads": 12,
+    "sampling_rate": 500,
+    "duration": 10.0,
+    "num_classes": 5
+  }
+}

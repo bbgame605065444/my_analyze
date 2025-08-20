@@ -1,0 +1,3 @@
+# 最小依赖 - 仅支持Gemini API
+numpy>=1.21.0
+google-generativeai>=0.3.0

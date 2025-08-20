@@ -1,0 +1,197 @@
+# Expert Decision Tree for Cardiology Diagnosis
+# Created for CoT-RAG Stage 1 Knowledge Graph Generation
+# Domain: Cardiology ECG Interpretation
+
+domain: cardiology
+expert: Dr. Clinical Cardiologist
+version: 1.0
+description: Comprehensive cardiology decision tree for ECG interpretation and cardiac diagnosis
+created_date: "2025-01-19"
+
+# Hierarchical decision tree nodes
+# Each node represents a major clinical decision point that will be decomposed
+# into fine-grained entities by the CoT-RAG Stage 1 generator
+
+nodes:
+  # Root node: Primary rhythm assessment
+  - node_id: primary_rhythm_assessment
+    question: "What is the fundamental cardiac rhythm pattern and is it normal or abnormal?"
+    knowledge_case: |
+      Rhythm assessment is the cornerstone of ECG interpretation. Normal sinus rhythm shows:
+      - Regular R-R intervals (consistent spacing)
+      - P-waves present before each QRS
+      - Normal P-wave morphology (upright in leads I, II, aVF)
+      - Heart rate 60-100 bpm in adults
+      - PR interval 120-200ms
+      
+      Abnormal rhythms include arrhythmias (AFIB, VT, SVT), conduction blocks, 
+      and rate abnormalities (bradycardia <60 bpm, tachycardia >100 bpm).
+    context: "Initial assessment determines if further investigation is needed"
+    is_root: true
+    clinical_significance: "Rhythm abnormalities can be life-threatening and require immediate intervention"
+
+  # Rate assessment branch
+  - node_id: heart_rate_analysis
+    question: "What is the specific heart rate category and are there rate-dependent pathologies?"
+    knowledge_case: |
+      Heart rate categories and clinical significance:
+      - Severe bradycardia (<40 bpm): Risk of hemodynamic compromise, may need pacing
+      - Mild bradycardia (40-59 bpm): May be normal in athletes or indicate medications/blocks
+      - Normal rate (60-100 bpm): Physiologic range for adults
+      - Mild tachycardia (100-150 bpm): May indicate fever, anxiety, dehydration, early shock
+      - Severe tachycardia (>150 bpm): Risk of hemodynamic instability, investigate cause
+      
+      Rate-dependent phenomena include aberrant conduction at high rates and 
+      Wenckebach periodicity in AV blocks.
+    context: "Rate evaluation guides urgency of intervention and underlying cause investigation"
+    parent: primary_rhythm_assessment
+    clinical_significance: "Extreme rates can compromise cardiac output and cerebral perfusion"
+
+  # Regularity and morphology assessment
+  - node_id: rhythm_regularity_morphology
+    question: "Is the rhythm regular or irregular, and what is the P-wave and QRS morphology?"
+    knowledge_case: |
+      Rhythm regularity patterns:
+      - Regular: Consistent R-R intervals (normal sinus, atrial flutter with fixed block)
+      - Regularly irregular: Predictable pattern (2nd degree AV block, bigeminy)
+      - Irregularly irregular: Random pattern (atrial fibrillation, multifocal atrial tachycardia)
+      
+      P-wave morphology:
+      - Normal: Upright in I, II, aVF; duration <120ms; amplitude <2.5mm
+      - Abnormal: Inverted, absent, multiple morphologies, increased duration/amplitude
+      
+      QRS morphology:
+      - Narrow (<120ms): Supraventricular origin
+      - Wide (≥120ms): Ventricular origin or aberrant conduction
+    context: "Morphology analysis differentiates supraventricular from ventricular arrhythmias"
+    parent: primary_rhythm_assessment
+    clinical_significance: "QRS width and morphology determine treatment approach for arrhythmias"
+
+  # Conduction system evaluation
+  - node_id: conduction_system_evaluation
+    question: "Are there conduction abnormalities including AV blocks or bundle branch blocks?"
+    knowledge_case: |
+      Conduction abnormalities by category:
+      
+      AV Blocks:
+      - 1st degree: PR >200ms, all P-waves conducted
+      - 2nd degree Type I (Wenckebach): Progressive PR prolongation until dropped beat
+      - 2nd degree Type II: Fixed PR with intermittent dropped beats
+      - 3rd degree (complete): AV dissociation, independent P and QRS rates
+      
+      Bundle Branch Blocks:
+      - RBBB: QRS ≥120ms, RSR' in V1, wide S in I and V6
+      - LBBB: QRS ≥120ms, broad R in I and V6, QS in V1
+      - Fascicular blocks: Left axis deviation (LAFB) or right axis deviation (LPFB)
+      
+      Clinical significance varies from benign (1st degree) to requiring pacemaker (complete block).
+    context: "Conduction assessment determines need for cardiac pacing and risk stratification"
+    parent: heart_rate_analysis
+    clinical_significance: "Progressive conduction blocks can lead to sudden cardiac death"
+
+  # Ischemia and infarction assessment
+  - node_id: ischemia_infarction_analysis
+    question: "Is there evidence of acute or chronic myocardial ischemia or infarction?"
+    knowledge_case: |
+      Ischemia/Infarction ECG changes:
+      
+      Acute STEMI (requires emergency reperfusion):
+      - ST elevation ≥1mm in 2+ contiguous leads
+      - Reciprocal ST depression in opposite leads
+      - Location by lead groups: Anterior (V1-V4), Inferior (II, III, aVF), Lateral (I, aVL, V5-V6)
+      
+      NSTEMI/Unstable Angina:
+      - ST depression ≥0.5mm
+      - T-wave inversions
+      - Transient ST elevation
+      
+      Chronic changes:
+      - Q-waves ≥40ms duration or ≥25% of QRS height
+      - Poor R-wave progression in precordial leads
+      - Fixed ST-T abnormalities
+      
+      Timing: Hyperacute T-waves (minutes) → ST elevation (hours) → Q-waves (hours-days) → T-wave inversion (days-weeks)
+    context: "Ischemia detection determines need for emergency cardiac catheterization"
+    parent: rhythm_regularity_morphology
+    clinical_significance: "Acute MI requires immediate reperfusion therapy to salvage myocardium"
+
+  # Structural heart disease evaluation
+  - node_id: structural_abnormalities
+    question: "Are there signs of structural heart disease including chamber enlargement or hypertrophy?"
+    knowledge_case: |
+      Structural abnormalities on ECG:
+      
+      Left Ventricular Hypertrophy (LVH):
+      - Voltage criteria: S in V1 + R in V5/V6 >35mm (Sokolow-Lyon)
+      - Cornell criteria: R in aVL + S in V3 >28mm (men) or >20mm (women)
+      - Associated: Left axis deviation, ST-T strain pattern
+      
+      Right Ventricular Hypertrophy (RVH):
+      - Right axis deviation >100°
+      - R/S ratio >1 in V1
+      - R in V1 >7mm or S in V1 <2mm
+      
+      Atrial Enlargement:
+      - Left atrial: P-wave duration >120ms, biphasic P in V1
+      - Right atrial: P-wave amplitude >2.5mm in II, III, aVF
+      
+      Associated conditions: Hypertension, aortic stenosis, pulmonary hypertension, cardiomyopathy
+    context: "Structural changes indicate chronic cardiac conditions requiring long-term management"
+    parent: rhythm_regularity_morphology
+    clinical_significance: "Chamber enlargement indicates increased cardiovascular risk and need for echocardiography"
+
+  # Electrolyte and drug effects
+  - node_id: metabolic_drug_effects
+    question: "Are there ECG changes suggesting electrolyte imbalances or drug effects?"
+    knowledge_case: |
+      Electrolyte abnormalities:
+      
+      Hyperkalemia (dangerous, can cause cardiac arrest):
+      - Mild (5.5-6.5): Tall, peaked T-waves
+      - Moderate (6.5-8.0): QRS widening, P-wave flattening
+      - Severe (>8.0): Sine wave pattern, ventricular arrhythmias
+      
+      Hypokalemia:
+      - U-waves prominent
+      - ST depression
+      - T-wave flattening or inversion
+      - Increased arrhythmia risk
+      
+      Hypercalcemia: Short QT interval
+      Hypocalcemia: Long QT interval
+      
+      Drug effects:
+      - Digitalis: Sagging ST depression, short QT, arrhythmias
+      - Quinidine/Procainamide: QT prolongation, torsades de pointes risk
+      - Tricyclics: QRS widening, QT prolongation
+    context: "Metabolic and drug effects can cause life-threatening arrhythmias"
+    parent: conduction_system_evaluation
+    clinical_significance: "Electrolyte abnormalities require immediate correction to prevent fatal arrhythmias"
+
+  # Final diagnostic integration
+  - node_id: integrated_diagnosis
+    question: "What is the integrated cardiac diagnosis based on all ECG findings?"
+    knowledge_case: |
+      Diagnostic integration process:
+      
+      1. Synthesize all findings: rhythm, rate, conduction, ischemia, structure
+      2. Prioritize by acuity:
+         - Life-threatening: STEMI, VT/VF, complete heart block, hyperkalemia
+         - Urgent: NSTEMI, high-grade AV blocks, symptomatic bradycardia
+         - Important: LVH, chronic Q-waves, controlled arrhythmias
+      
+      3. Consider clinical correlation:
+         - Chest pain + ST elevation = acute STEMI
+         - Shortness of breath + LVH = heart failure workup needed
+         - Syncope + bradycardia = pacemaker evaluation
+      
+      4. Determine immediate actions:
+         - Emergency: Activate cath lab, start ACLS, emergency pacing
+         - Urgent: Admit for monitoring, cardiology consultation
+         - Outpatient: Echo, stress test, Holter monitor
+      
+      Always correlate ECG with clinical presentation for accurate diagnosis.
+    context: "Final integration determines treatment plan and disposition"
+    parent: ischemia_infarction_analysis
+    clinical_significance: "Integrated diagnosis guides emergency vs routine care pathway"
+    is_terminal: true
