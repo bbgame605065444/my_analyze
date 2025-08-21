@@ -742,11 +742,30 @@ class ModelRegistry:
         from .han_classifier import HANClassifier
         from .ensemble_manager import EnsembleManager
         
+        # Try to import fairseq classifier
+        try:
+            from .fairseq_classifier import FairseqECGClassifier, create_fairseq_ecg_classifier
+            FAIRSEQ_CLASSIFIER_AVAILABLE = True
+        except ImportError:
+            FAIRSEQ_CLASSIFIER_AVAILABLE = False
+        
         # Create model based on architecture
         if config.architecture == ModelArchitecture.SE_RESNET:
             return SEResNetClassifier(config)
         elif config.architecture == ModelArchitecture.HAN:
             return HANClassifier(config)
+        elif config.architecture == ModelArchitecture.FAIRSEQ_TRANSFORMER:
+            if FAIRSEQ_CLASSIFIER_AVAILABLE:
+                # Use default checkpoint path from model params or fallback
+                checkpoint_path = config.model_params.get('checkpoint_path', '/models/fairseq_ecg_hierarchical.pt')
+                return create_fairseq_ecg_classifier(
+                    model_checkpoint=checkpoint_path,
+                    num_classes=config.num_classes,
+                    input_shape=config.input_shape
+                )
+            else:
+                warnings.warn("Fairseq classifier not available, falling back to mock")
+                return MockECGModel(config)
         elif config.architecture == ModelArchitecture.ENSEMBLE:
             # For ensemble, we would need to load constituent models
             # For now, create a mock ensemble

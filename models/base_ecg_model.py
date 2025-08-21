@@ -43,6 +43,7 @@ class ModelArchitecture(Enum):
     HAN = "han"  # Hierarchical Attention Network
     CNN_LSTM = "cnn_lstm"
     TRANSFORMER = "transformer"
+    FAIRSEQ_TRANSFORMER = "fairseq_transformer"  # Fairseq-signals integration
     ENSEMBLE = "ensemble"
 
 @dataclass
